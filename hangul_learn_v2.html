@@ -1085,17 +1085,36 @@ function startDlgSpeech(expected, btn) {
     resultEl.innerHTML = `<div style="color:#F59E0B;font-size:.82rem;padding:.5rem 1rem;background:#FEF3C7;border-radius:10px;margin-bottom:.5rem;">⚠️ Speech recognition not supported. Try Chrome!</div>`;
     return;
   }
-  const orig = '🎤'; btn.textContent = '🎙️'; btn.style.color = '#FF6B6B';
+  const orig = '🎤';
+  // 3단계 피드백
+  btn.textContent = '⏳'; btn.style.color = '#F59E0B';
+  resultEl.innerHTML = `<div style="color:#F59E0B;font-size:.82rem;padding:.5rem 1rem;background:#FEF3C7;border-radius:10px;margin-bottom:.5rem;">⏳ 준비 중...</div>`;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SR();
   recognition.lang = 'ko-KR'; recognition.continuous = false; recognition.interimResults = false;
   let mediaRecorder = null, audioChunks = [], recordingReady = false;
-  navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
+  function doRecord(stream) {
     mediaRecorder = new MediaRecorder(stream); audioChunks = [];
     mediaRecorder.ondataavailable = e => { if(e.data.size>0) audioChunks.push(e.data); };
-    mediaRecorder.onstop = () => { const blob=new Blob(audioChunks,{type:'audio/webm'}); window._lastRecordingUrl=URL.createObjectURL(blob); recordingReady=true; stream.getTracks().forEach(t=>t.stop()); const pb=document.getElementById('dlg-playback-btn'); if(pb) pb.disabled=false; };
-    mediaRecorder.start(); recognition.start();
-  }).catch(() => recognition.start());
+    mediaRecorder.onstop = () => { const blob=new Blob(audioChunks,{type:'audio/webm'}); window._lastRecordingUrl=URL.createObjectURL(blob); recordingReady=true; const pb=document.getElementById('dlg-playback-btn'); if(pb) pb.disabled=false; };
+    mediaRecorder.start();
+    setTimeout(() => {
+      btn.textContent = '🎙️'; btn.style.color = '#FF6B6B';
+      resultEl.innerHTML = `<div style="color:#FF6B6B;font-size:.88rem;font-weight:700;padding:.5rem 1rem;background:#FFF0EA;border-radius:10px;margin-bottom:.5rem;animation:pulse 1s infinite;">🎙️ 지금 말하세요!</div>`;
+      recognition.start();
+    }, 400);
+  }
+  if (window._micStream && window._micStream.active) {
+    doRecord(window._micStream);
+  } else {
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
+      window._micStream = stream;
+      doRecord(stream);
+    }).catch(() => {
+      btn.textContent = orig; btn.style.color = '#52b788';
+      resultEl.innerHTML = `<div style="color:#F59E0B;font-size:.82rem;padding:.5rem 1rem;background:#FEF3C7;border-radius:10px;margin-bottom:.5rem;">⚠️ 마이크 권한이 필요해요.</div>`;
+    });
+  }
   function buildResult(match, transcript) {
     btn.textContent = orig; btn.style.color = '#52b788';
     const pb = `<button id="dlg-playback-btn" onclick="playMyRecording(this)" style="background:var(--surface2);border:1.5px solid var(--border);color:var(--text-muted);border-radius:99px;padding:.25rem .7rem;font-size:.72rem;font-weight:600;cursor:pointer;" ${recordingReady?'':'disabled'}>🔊 내 발음</button>`;
