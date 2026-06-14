@@ -1154,16 +1154,17 @@ function toggleSentenceView(mode) {
 
 function renderL2Dialogue(cat) {
   const el = document.getElementById('l2-section-content');
-  let html = `<div style="font-size:.75rem;color:var(--text-muted);margin-bottom:1rem;">🔊 tap to listen &nbsp;·&nbsp; 🎤 tap to speak</div><div id="dlg-speak-result" style="min-height:0;margin-bottom:.5rem;"></div>`;
+  let html = `<div style="font-size:.75rem;color:var(--text-muted);margin-bottom:1rem;">🔊 tap to listen &nbsp;·&nbsp; 🎤 tap to speak</div>`;
   cat.dialogues.forEach((dlg, dIdx) => {
     html += `<div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1rem;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
         <div><div style="font-size:.7rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:.2rem;">대화 ${dIdx+1}</div><div style="font-family:'Noto Sans KR',sans-serif;font-size:1rem;font-weight:700;">${dlg.title}</div><div style="font-size:.78rem;color:var(--text-muted);">${dlg.titleEn}</div></div>
         <button onclick="playFullDialogue(${dIdx})" style="background:#4D96FF;color:white;border:none;padding:.45rem 1rem;border-radius:99px;font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap;">▶ 전체 듣기</button>
       </div>`;
-    dlg.lines.forEach(line => {
+    dlg.lines.forEach((line, lIdx) => {
+      const feedbackId = `dlg-fb-${dIdx}-${lIdx}`;
       const kc = line.kr.replace(/~/g,'');
-      html += `<div class="dlg-line" data-kr="${kc.replace(/"/g,'&quot;')}" style="background:${line.isMe?'linear-gradient(135deg,#F0FDF4,#DCFCE7)':'white'};border:${line.isMe?'2px solid #52b788':'1px solid var(--border)'};border-radius:12px;padding:.8rem 1rem;margin-bottom:.5rem;display:flex;gap:.8rem;align-items:center;">
+      html += `<div class="dlg-line" data-kr="${kc.replace(/"/g,'&quot;')}" style="background:${line.isMe?'linear-gradient(135deg,#F0FDF4,#DCFCE7)':'white'};border:${line.isMe?'2px solid #52b788':'1px solid var(--border)'};border-radius:12px;padding:.8rem 1rem;margin-bottom:0;display:flex;gap:.8rem;align-items:center;">
         <div style="font-size:.68rem;font-weight:700;color:${line.isMe?'#276749':'#64748B'};min-width:2rem;flex-shrink:0;text-transform:uppercase;">${line.speaker}</div>
         <div style="flex:1;min-width:0;">
           <div style="font-family:'Noto Sans KR',sans-serif;font-size:1rem;font-weight:${line.isMe?'800':'600'};color:${line.isMe?'#0F172A':'#334155'};margin-bottom:.15rem;">${line.kr}</div>
@@ -1172,9 +1173,9 @@ function renderL2Dialogue(cat) {
         </div>
         <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.3rem;">
           <button onclick="speak('${kc.replace(/'/g,"\\'")}');highlightDlgLine(this.closest('.dlg-line'))" style="background:none;border:none;color:#4D96FF;font-size:1.2rem;cursor:pointer;padding:.2rem;line-height:1;">🔊</button>
-          <button onclick="startDlgSpeech('${kc.replace(/'/g,"\\'")}',this)" style="background:none;border:none;color:#52b788;font-size:1.2rem;cursor:pointer;padding:.2rem;line-height:1;">🎤</button>
+          <button onclick="startDlgSpeech('${kc.replace(/'/g,"\\'")}',this,'${feedbackId}')" style="background:none;border:none;color:#52b788;font-size:1.2rem;cursor:pointer;padding:.2rem;line-height:1;">🎤</button>
         </div>
-      </div>`;
+      </div><div id="${feedbackId}" style="margin-bottom:.5rem;min-height:0;"></div>`;
     });
     html += `</div>`;
   });
@@ -1183,8 +1184,8 @@ function renderL2Dialogue(cat) {
 
 function highlightDlgLine(el){el.style.boxShadow='0 0 0 2px #52b788';setTimeout(()=>el.style.boxShadow='',800);}
 
-function startDlgSpeech(expected, btn) {
-  const resultEl = document.getElementById('dlg-speak-result');
+function startDlgSpeech(expected, btn, feedbackId) {
+  const resultEl = feedbackId ? document.getElementById(feedbackId) : document.getElementById('dlg-speak-result');
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     resultEl.innerHTML = `<div style="color:#F59E0B;font-size:.82rem;padding:.5rem 1rem;background:#FEF3C7;border-radius:10px;margin-bottom:.5rem;">⚠️ Speech recognition not supported. Try Chrome!</div>`;
     return;
@@ -1224,6 +1225,7 @@ function startDlgSpeech(expected, btn) {
   }
   function buildResult(match, transcript) {
     btn.textContent = orig; btn.style.color = '#52b788';
+    if (resultEl) resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
     const pb = `<button id="dlg-playback-btn" onclick="playMyRecording(this)" style="background:var(--surface2);border:1.5px solid var(--border);color:var(--text-muted);border-radius:99px;padding:.25rem .7rem;font-size:.72rem;font-weight:600;cursor:pointer;" ${recordingReady?'':'disabled'}>🔊 내 발음</button>`;
     if (match) resultEl.innerHTML = `<div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.6rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;"><span style="color:#276749;font-weight:700;">✅ 잘했어요!</span><span style="font-family:'Noto Sans KR',sans-serif;color:#0F172A;">"${transcript}"</span>${pb}</div>`;
     else resultEl.innerHTML = `<div style="background:#FFF8F6;border:1.5px solid rgba(255,107,107,.4);border-radius:10px;padding:.6rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;"><span style="color:#E53E3E;font-weight:700;">🔄 다시!</span><span style="font-size:.8rem;color:var(--text-muted);">You: <span style="font-family:'Noto Sans KR',sans-serif;color:#0F172A;">"${transcript}"</span></span><span style="font-size:.8rem;color:var(--text-muted);">→ <span style="font-family:'Noto Sans KR',sans-serif;color:#52b788;font-weight:700;">"${expected}"</span></span>${pb}</div>`;
