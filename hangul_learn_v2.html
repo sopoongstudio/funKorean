@@ -125,7 +125,6 @@
   .kculture-artist-header .chevron{margin-left:auto;transition:transform .2s;font-size:.75rem;color:var(--text-muted);}
   .kculture-artist-header.open .chevron{transform:rotate(180deg);}
   .kculture-songs{display:none;padding:.4rem .6rem .6rem;background:white;}
-  .kculture-songs.open{display:block;}
   .kculture-song-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.55rem .5rem;border-radius:9px;transition:background .15s;flex-wrap:wrap;}
   .kculture-song-row:hover{background:#F8FAFC;}
   .song-info{flex:1;min-width:0;}
@@ -470,8 +469,45 @@
 
 <script>
 // K-CULTURE ACCORDION
-function toggleKSection(h){h.classList.toggle('open');const b=document.getElementById(h.id.replace('-header','-body'));if(b)b.style.display=h.classList.contains('open')?'block':'none';}
-function toggleArtist(h){h.classList.toggle('open');const s=h.nextElementSibling;if(s)s.classList.toggle('open');}
+function toggleKSection(h){
+  const isOpen = h.classList.contains('open');
+  // Close ALL sections first
+  document.querySelectorAll('.kculture-section-header').forEach(hdr => {
+    hdr.classList.remove('open');
+    const b = document.getElementById(hdr.id.replace('-header','-body'));
+    if(b){ b.style.display='none'; }
+    // Also close all artists inside when section closes
+    b && b.querySelectorAll('.kculture-artist-header').forEach(ah => {
+      ah.classList.remove('open');
+      const s = ah.nextElementSibling;
+      if(s) s.style.display='none';
+    });
+  });
+  // If it was closed, open it
+  if(!isOpen){
+    h.classList.add('open');
+    const b = document.getElementById(h.id.replace('-header','-body'));
+    if(b) b.style.display='block';
+  }
+}
+function toggleArtist(h){
+  const isOpen = h.classList.contains('open');
+  // Close all siblings in same section body
+  const body = h.closest('[id$="-body"]');
+  if(body){
+    body.querySelectorAll('.kculture-artist-header').forEach(ah => {
+      ah.classList.remove('open');
+      const s = ah.nextElementSibling;
+      if(s) s.style.display='none';
+    });
+  }
+  // If it was closed, open it
+  if(!isOpen){
+    h.classList.add('open');
+    const s = h.nextElementSibling;
+    if(s) s.style.display='block';
+  }
+}
 
 // TTS
 function speak(t){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
