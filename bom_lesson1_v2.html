@@ -357,7 +357,7 @@ h2{font-size:clamp(18px,2.4vw,32px);font-weight:700;color:var(--accent2);margin-
   <div class="slide" id="s6">
     <div class="slide-num">6 / 6</div>
     <h2 style="margin-bottom:8px">🎯 퀴즈 Quiz!</h2>
-    <div id="quizArea" style="flex:1;position:relative;width:100%;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
+    <div id="quizArea" style="flex:1;position:relative;width:100%;display:flex;flex-direction:column;min-height:0;"></div>
     <div style="text-align:center;padding:4px 0;position:relative;z-index:20">
       <button onclick="skipQuiz()" id="skipBtn" style="background:none;border:none;font-size:clamp(11px,1vw,13px);color:#94a3b8;cursor:pointer;text-decoration:underline;font-family:'Noto Sans KR',sans-serif">퀴즈 건너뛰기 Skip quiz →</button>
     </div>
@@ -550,8 +550,8 @@ function renderQuiz(){
   setTimeout(()=>{
     const inner=document.getElementById('quizInner');
     const scatter=document.getElementById('wordScatter');
-    const W=inner.offsetWidth||700;
-    const H=inner.offsetHeight||280;
+    const W=inner.offsetWidth||600;
+    const H=inner.offsetHeight>80?inner.offsetHeight:280;
     shuffled.forEach((w)=>{
       const d=document.createElement('div');
       d.className='scatter-word';
