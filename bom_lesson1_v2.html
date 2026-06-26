@@ -538,42 +538,24 @@ function renderQuiz(){
   const shuffled=[...allWords].sort(()=>Math.random()-.5);
   area.innerHTML=`
     <div class="quiz-progress">${qIdx+1} / ${quizQs.length}</div>
-    <div style="position:relative;flex:1;width:100%;min-height:280px;" id="quizInner">
-      <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);text-align:center;z-index:2;">
-        <div style="font-size:clamp(24px,3.5vw,44px)">${q.emoji}</div>
-        <div style="font-size:clamp(15px,2vw,26px);font-weight:700;white-space:nowrap"><span id="blankSlot" style="color:var(--accent)">_____</span>${ig} 왔어요</div>
-      </div>
-      <div id="wordScatter" style="position:absolute;inset:0;"></div>
-      <div id="quizMsg" style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:clamp(14px,1.6vw,20px);font-weight:700;white-space:nowrap;"></div>
+    <div style="text-align:center;margin:8px 0 12px;">
+      <div style="font-size:clamp(24px,3.5vw,44px)">${q.emoji}</div>
+      <div style="font-size:clamp(15px,2vw,26px);font-weight:700;white-space:nowrap"><span id="blankSlot" style="color:var(--accent)">_____</span>${ig} 왔어요</div>
     </div>
+    <div id="wordScatter" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:flex-start;flex:1;padding:4px 8px;"></div>
+    <div id="quizMsg" style="text-align:center;font-size:clamp(14px,1.6vw,20px);font-weight:700;min-height:28px;padding:4px 0;"></div>
   `;
-  setTimeout(()=>{
-    const inner=document.getElementById('quizInner');
-    const scatter=document.getElementById('wordScatter');
-    const W=inner.offsetWidth||600;
-    const H=Math.max(inner.offsetHeight,320);
-    shuffled.forEach((w)=>{
-      const d=document.createElement('div');
-      d.className='scatter-word';
-      d.textContent=w;
-      d.style.cssText='position:absolute;padding:7px 18px;border-radius:99px;border:1.5px solid #e2e8f0;background:white;font-size:clamp(15px,1.8vw,22px);font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.07);color:#1e293b;white-space:nowrap;';
-      // random position across full area, avoid centre-top question area
-      let x,y,tries=0;
-      do {
-        x=10+Math.random()*(W-100);
-        y=10+Math.random()*(H-40);
-        tries++;
-      } while(tries<30 && x>W/2-140 && x<W/2+80 && y<90);
-      const rot=(Math.random()-0.5)*20;
-      d.style.left=x+'px';
-      d.style.top=y+'px';
-      d.style.transform='rotate('+rot+'deg)';
-      d.onmouseenter=()=>{d.style.borderColor='#e91e8c';d.style.background='rgba(233,30,140,.06)'};
-      d.onmouseleave=()=>{if(!d.classList.contains('used')){d.style.borderColor='#e2e8f0';d.style.background='white'}};
-      d.onclick=()=>checkAnswer(w,d,q);
-      scatter.appendChild(d);
-    });
-  }, 600);
+  const scatter=document.getElementById('wordScatter');
+  shuffled.forEach((w)=>{
+    const d=document.createElement('div');
+    d.textContent=w;
+    const rot=(Math.random()-0.5)*12;
+    d.style.cssText=`padding:8px 18px;border-radius:99px;border:1.5px solid #e2e8f0;background:white;font-size:clamp(14px,1.6vw,20px);font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.07);color:#1e293b;white-space:nowrap;transform:rotate(${rot}deg);transition:border-color .2s,background .2s;`;
+    d.onmouseenter=()=>{d.style.borderColor='#e91e8c';d.style.background='rgba(233,30,140,.06)'};
+    d.onmouseleave=()=>{if(!d.classList.contains('used')){d.style.borderColor='#e2e8f0';d.style.background='white'}};
+    d.onclick=()=>checkAnswer(w,d,q);
+    scatter.appendChild(d);
+  });
 }
 
 function checkAnswer(word,el,q){
