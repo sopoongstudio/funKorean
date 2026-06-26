@@ -551,7 +551,7 @@ function renderQuiz(){
     const inner=document.getElementById('quizInner');
     const scatter=document.getElementById('wordScatter');
     const W=inner.offsetWidth||600;
-    const H=inner.offsetHeight>80?inner.offsetHeight:280;
+    const H=Math.max(inner.offsetHeight,320);
     shuffled.forEach((w)=>{
       const d=document.createElement('div');
       d.className='scatter-word';
@@ -573,7 +573,7 @@ function renderQuiz(){
       d.onclick=()=>checkAnswer(w,d,q);
       scatter.appendChild(d);
     });
-  }, 200);
+  }, 600);
 }
 
 function checkAnswer(word,el,q){
