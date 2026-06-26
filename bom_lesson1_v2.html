@@ -35,7 +35,7 @@ body::before{
              radial-gradient(circle at 80% 20%,rgba(206,147,216,.06),transparent 50%);
   pointer-events:none;z-index:0;
 }
-.deck{position:relative;width:min(1280px,96vw);aspect-ratio:16/9;overflow:hidden;border-radius:24px;box-shadow:0 8px 60px rgba(233,30,140,.08),0 2px 8px rgba(0,0,0,.04);z-index:1;background:var(--card)}
+.deck{position:relative;width:min(1280px,96vw);aspect-ratio:16/9;min-height:min(54vw,720px);overflow:hidden;border-radius:24px;box-shadow:0 8px 60px rgba(233,30,140,.08),0 2px 8px rgba(0,0,0,.04);z-index:1;background:var(--card)}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;padding:clamp(28px,4.5vw,56px);
   background:linear-gradient(160deg,rgba(255,240,246,.4),rgba(255,255,255,.9) 40%,rgba(253,246,255,.4) 100%);
   opacity:0;transition:opacity .35s;visibility:hidden}
@@ -146,6 +146,10 @@ h2{font-size:clamp(18px,2.4vw,32px);font-weight:700;color:var(--accent2);margin-
 .complete-emoji{font-size:clamp(48px,7vw,80px);margin-bottom:16px}
 .complete-title{font-size:clamp(24px,3.5vw,48px);font-weight:800;color:var(--accent2);margin-bottom:8px}
 .complete-sub{font-size:clamp(14px,1.5vw,20px);color:var(--dim)}
+@media (max-width:600px){
+  body{overflow:auto;height:auto;align-items:flex-start;padding:12px 0;}
+  .deck{width:100vw;aspect-ratio:unset;min-height:unset;height:56.25vw;border-radius:0;}
+}
 </style>
 </head>
 <body>
