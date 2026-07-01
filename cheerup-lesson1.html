@@ -46,7 +46,7 @@ h2{font-size:clamp(19px,5vw,26px);font-weight:700;color:var(--accent2);margin-bo
 .cover-section .lesson-links{max-width:480px}
 .cover-badge{font-family:'Outfit';font-size:12px;font-weight:700;letter-spacing:3px;color:var(--coral2);background:rgba(251,113,133,.1);padding:6px 22px;border-radius:30px;margin-bottom:10px;display:inline-block}
 .cover-hook{font-size:clamp(15px,4vw,19px);color:var(--dim);font-weight:500;margin-top:6px}
-.lesson-links{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.lesson-links{display:flex;flex-direction:column;gap:10px;margin-top:22px;align-items:center}
 .lesson-link{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 22px;border-radius:30px;font-size:15px;font-weight:600;text-decoration:none;border:2px solid;cursor:pointer;background:none;font-family:'Noto Sans KR','Outfit',sans-serif;transition:all .22s}
 .ll1{border-color:var(--accent);color:var(--accent2);background:rgba(20,184,166,.06)}
 .ll2{border-color:var(--coral);color:var(--coral2);background:rgba(251,113,133,.06)}
@@ -144,7 +144,7 @@ h2{font-size:clamp(19px,5vw,26px);font-weight:700;color:var(--accent2);margin-bo
 @media (min-width:700px){
   .section{max-width:880px;padding:48px 32px 56px}
   .cover-section>*{max-width:640px}
-  .cover-section .lesson-links{flex-direction:row;max-width:640px}
+  .cover-section .lesson-links{flex-direction:row;max-width:640px;justify-content:center}
   .gw-grid{grid-template-columns:repeat(3,1fr)}
   .wh-grid{grid-template-columns:repeat(3,1fr)}
   .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -169,8 +169,8 @@ h2{font-size:clamp(19px,5vw,26px);font-weight:700;color:var(--accent2);margin-bo
   <div class="cover-hook">CHEER UP BABY · 좀 더 힘을 내</div>
   <div class="subtitle">Gesture-based · Beginner-friendly</div>
   <div class="lesson-links">
-    <button class="lesson-link ll1" onclick="jump('lesson1')">🎵 Lesson 1 — Golden Words &amp; Chorus</button>
-    <button class="lesson-link ll2" onclick="jump('lesson2')">💕 Lesson 2 — 밀당 &amp; Full Chorus</button>
+    <button class="lesson-link ll1" onclick="jump('lesson1')">🎵 Golden Words &amp; Chorus</button>
+    <button class="lesson-link ll2" onclick="jump('action')">⚡ Action Challenge</button>
   </div>
 </div>
 
@@ -252,7 +252,7 @@ h2{font-size:clamp(19px,5vw,26px);font-weight:700;color:var(--accent2);margin-bo
 </div>
 
 <!-- ════════ L1 ACTION CHALLENGE ════════ -->
-<div class="section">
+<div class="section" id="action">
   <span class="lesson-tag lt1">LESSON 1</span>
   <h2>⚡ Action Challenge — React Fast!</h2>
   <div class="content">
@@ -298,94 +298,10 @@ h2{font-size:clamp(19px,5vw,26px);font-weight:700;color:var(--accent2);margin-bo
       <div class="line-row" onclick="speakKr(this,'그래야 니가 날 더 좋아하게 될걸')"><div class="line-no">4</div><button class="tts-btn">🔊</button><div><div class="line-kr">그래야 니가 날 더 좋아하게 될걸</div><div class="line-rom">geu-rae-ya ni-ga nal deo jo-a-ha-ge doel-geol</div><div class="line-en">That way you'll like me even more</div></div></div>
     </div>
     <div class="ac-rule">🎯 Lesson 1 goal: 이 4줄 읽기! · Lesson 2: 나머지 3줄 → full chorus 부르기!</div>
-    <div class="jump-row"><button class="lesson-link ll2" onclick="jump('lesson2')" style="border-radius:30px">💕 Lesson 2로 이동 →</button></div>
+    <div class="jump-row"><button class="lesson-link ll2" onclick="jump('top')" style="border-radius:30px">↑ 처음으로</button></div>
   </div>
 </div>
 
-<!-- ════════ L2 밀당 CULTURE + 토론 ════════ -->
-<div class="section" id="lesson2">
-  <span class="lesson-tag lt2">LESSON 2</span>
-  <h2>💕 밀당 — Korean Dating Culture</h2>
-  <div class="content">
-    <div class="disc-hero">
-      <div class="disc-q">Have you ever done 밀당<br>(push &amp; pull) with someone?</div>
-    </div>
-    <div class="disc-grid">
-      <div class="disc-card"><span class="em">💬</span>Did you text back late on purpose?</div>
-      <div class="disc-card"><span class="em">😏</span>Did you act casual around your crush?</div>
-      <div class="disc-card"><span class="em">🤔</span>What's 밀당 like in your country?</div>
-    </div>
-    <div class="jump-row">
-      <a class="game-btn teal" href="gen_z_dating_4stages.html" target="_blank" rel="noopener">📖 젠지 연애 4단계 — Dating Culture 읽기</a>
-      <a class="game-btn" href="mildang-discussion.html" target="_blank" rel="noopener" id="discussLink">💬 토론에 참여하기 — Share Your Story</a>
-    </div>
-    <div class="disc-note">Read the culture guide, then share your 밀당 story with other learners!</div>
-  </div>
-</div>
-
-<!-- ════════ L2 GOLDEN WORDS ════════ -->
-<div class="section">
-  <span class="lesson-tag lt2">LESSON 2</span>
-  <h2>⭐ Golden Words — Today's New Words</h2>
-  <div class="content">
-    <div class="gw-grid">
-      <div class="gw-card" onclick="speakKr(this,'연기')"><div class="gw-emoji">🎭</div><div class="gw-kr">연기</div><div class="gw-rom">yeon-gi</div><div class="gw-en">Acting / Pretending</div></div>
-      <div class="gw-card" onclick="speakKr(this,'모르게')"><div class="gw-emoji">🤫</div><div class="gw-kr">모르게</div><div class="gw-rom">mo-reu-ge</div><div class="gw-en">Secretly / Without knowing</div></div>
-      <div class="gw-card" onclick="speakKr(this,'밀당')"><div class="gw-emoji">💕</div><div class="gw-kr">밀당</div><div class="gw-rom">mil-dang</div><div class="gw-en">Push &amp; Pull (in dating)</div></div>
-      <div class="gw-card" onclick="speakKr(this,'태연하게')"><div class="gw-emoji">😌</div><div class="gw-kr">태연하게</div><div class="gw-rom">tae-yeon-ha-ge</div><div class="gw-en">Casually / As if nothing</div></div>
-      <div class="gw-card" onclick="speakKr(this,'할래')"><div class="gw-emoji">🙋</div><div class="gw-kr">할래 (할거야)</div><div class="gw-rom">hal-lae (hal-geo-ya)</div><div class="gw-en">Shall we? / Wanna do it?</div></div>
-      <div class="gw-card" onclick="speakKr(this,'아무렇지 않게')"><div class="gw-emoji">🪨</div><div class="gw-kr">아무렇지 않게</div><div class="gw-rom">a-mu-reo-chi an-ke</div><div class="gw-en">No big deal / Hiding real feelings</div></div>
-    </div>
-    <div class="gw-hint">🔊 이 단어들이 오늘 배울 후렴구에 나와요!</div>
-  </div>
-</div>
-
-<!-- ════════ L2 NEW LINES ════════ -->
-<div class="section">
-  <span class="lesson-tag lt2">LESSON 2</span>
-  <h2>🆕 Today's New Lines — Learn These 3!</h2>
-  <div class="content">
-    <div class="line-list">
-      <div class="line-row new" onclick="speakKr(this,'태연하게 연기할래 아무렇지 않게')"><div class="line-no">5</div><button class="tts-btn">🔊</button><div><div class="line-kr">태연하게 연기할래 아무렇지 않게</div><div class="line-rom">tae-yeon-ha-ge yeon-gi-hal-lae a-mu-reot-ji an-ke</div><div class="line-en">I'll act all casual, as if I don't care</div></div></div>
-      <div class="line-row new" onclick="speakKr(this,'내가 널 좋아하는 맘 모르게')"><div class="line-no">6</div><button class="tts-btn">🔊</button><div><div class="line-kr">내가 널 좋아하는 맘 모르게</div><div class="line-rom">nae-ga neol jo-a-ha-neun mam mo-reu-ge</div><div class="line-en">So you won't know how much I like you</div></div></div>
-      <div class="line-row new" onclick="speakKr(this,'just get it together and then baby CHEER UP')"><div class="line-no">7</div><button class="tts-btn">🔊</button><div><div class="line-kr">just get it together and then baby CHEER UP</div><div class="line-en">Just get it together and then baby CHEER UP</div></div></div>
-    </div>
-    <div class="ac-rule">각 줄을 3번씩 읽어요 — 천천히, 그다음 빠르게!</div>
-  </div>
-</div>
-
-<!-- ════════ GAME TIME (embedded games) ════════ -->
-<div class="section">
-  <span class="lesson-tag lt2">LESSON 2</span>
-  <h2>🎮 Game Time — Study Room</h2>
-  <iframe class="game-frame" src="CheerUp_Lesson2_Games.html" title="Cheer Up Lesson 2 Games"></iframe>
-</div>
-
-<!-- ════════ FULL CHORUS ════════ -->
-<div class="section">
-  <span class="lesson-tag lt2">LESSON 2</span>
-  <h2>🎤 Full Chorus — Sing All 7 Lines!</h2>
-  <div class="content">
-    <a class="yt-thumb-card" href="https://www.youtube.com/watch?v=c7rCyll5AeY" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/c7rCyll5AeY/hqdefault.jpg" alt="TWICE Cheer Up MV">
-      <div class="yt-play-overlay">
-        <div class="yt-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="yt-play-label">▶ MV와 함께 불러보기</div>
-      </div>
-    </a>
-    <div class="yt-note">후렴구: 1:07부터 · 줄을 탭하면 발음을 들을 수 있어요</div>
-    <div class="line-list">
-      <div class="line-row" onclick="speakKr(this,'CHEER UP BABY, CHEER UP BABY')"><div class="line-no">1</div><div class="line-kr">CHEER UP BABY, CHEER UP BABY</div></div>
-      <div class="line-row" onclick="speakKr(this,'좀 더 힘을 내')"><div class="line-no">2</div><div class="line-kr">좀 더 힘을 내</div></div>
-      <div class="line-row" onclick="speakKr(this,'여자가 쉽게 맘을 주면 안돼')"><div class="line-no">3</div><div class="line-kr">여자가 쉽게 맘을 주면 안돼</div></div>
-      <div class="line-row" onclick="speakKr(this,'그래야 니가 날 더 좋아하게 될걸')"><div class="line-no">4</div><div class="line-kr">그래야 니가 날 더 좋아하게 될걸</div></div>
-      <div class="line-row new" onclick="speakKr(this,'태연하게 연기할래 아무렇지 않게')"><div class="line-no">5</div><div class="line-kr">태연하게 연기할래 아무렇지 않게</div></div>
-      <div class="line-row new" onclick="speakKr(this,'내가 널 좋아하는 맘 모르게')"><div class="line-no">6</div><div class="line-kr">내가 널 좋아하는 맘 모르게</div></div>
-      <div class="line-row new" onclick="speakKr(this,'just get it together and then baby CHEER UP')"><div class="line-no">7</div><div class="line-kr">just get it together... CHEER UP</div></div>
-    </div>
-    <div class="jump-row"><button class="lesson-link ll1" onclick="jump('top')" style="border-radius:30px">↑ 맨 위로</button></div>
-  </div>
-</div>
 
 <script>
 // ── Scroll progress bar (replaces slide-based progress) ──
