@@ -163,8 +163,8 @@
   <header style="background:transparent;border-bottom:none;padding:1.2rem 1.5rem;">
     <div class="logo"><span class="logo-hangul">한글</span><span class="logo-en">Learn Korean</span></div>
     <div style="display:flex;gap:.8rem;align-items:center;">
-      <button onclick="showLearnPage();openModal('about')" style="background:none;border:1.5px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:500;">✦ About</button>
-      <button onclick="showLearnPage();openModal('song')" style="background:none;border:1.5px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:500;">🎵 Song</button>
+      <button onclick="openModal('about')" style="background:#FF6B6B;border:none;color:#fff;padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px rgba(255,107,107,.35);" onmouseover="this.style.background='#e85d5d'" onmouseout="this.style.background='#FF6B6B'">✦ About Hangul</button>
+      <button onclick="openModal('song')" style="background:#52b788;border:none;color:#fff;padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px rgba(82,183,136,.35);" onmouseover="this.style.background='#40916c'" onmouseout="this.style.background='#52b788'">🎵 Song</button>
     </div>
   </header>
   <div id="home-hero" style="max-width:600px;margin:0 auto;padding:2rem 1.5rem 1rem;text-align:center;">
@@ -242,6 +242,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <div style="text-align:center;padding:1.5rem 1.5rem .75rem;display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;">
+    <a href="https://ko-fi.com/funkorean" target="_blank" style="display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1.5px solid #E2E8F0;color:#1E293B;text-decoration:none;padding:.55rem 1.2rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.07);transition:box-shadow .15s;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,.13)'" onmouseout="this.style.boxShadow='0 1px 4px rgba(0,0,0,.07)'">☕ Buy me a coffee</a>
+    <a href="https://cal.com/funkorean/trial" target="_blank" style="display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1.5px solid #E2E8F0;color:#1E293B;text-decoration:none;padding:.55rem 1.2rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.07);transition:box-shadow .15s;" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,.13)'" onmouseout="this.style.boxShadow='0 1px 4px rgba(0,0,0,.07)'">👩‍🏫 Book a lesson</a>
   </div>
   <div style="text-align:center;padding:.5rem 1.5rem 2.5rem;color:#94A3B8;font-size:.75rem;line-height:1.8;">Made with ❤️ by Melanie, for every Korean learner<br><span style="font-family:'Noto Sans KR',sans-serif;">멜라니와 함께 공부하는 모든 분들을 위해</span></div>
 </div>
@@ -387,6 +391,8 @@
   </div>
 </div>
 
+</div><!-- /learn-page -->
+
 <!-- MODALS -->
 
 
@@ -471,6 +477,5 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('clic
 function showHome(){document.getElementById('home-screen').style.display='block';document.getElementById('learn-page').style.display='none';window.scrollTo(0,0);}
 function showLearnPage(){document.getElementById('home-screen').style.display='none';document.getElementById('learn-page').style.display='block';window.scrollTo(0,0);}
 </script>
-</div>
 </body>
 </html>
