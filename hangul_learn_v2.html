@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/funKorean-app/manifest.json">
 <title>한글 배우기 — Learn Hangul</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
@@ -163,8 +164,8 @@
   <header style="background:transparent;border-bottom:none;padding:1.2rem 1.5rem;">
     <div class="logo"><span class="logo-hangul">한글</span><span class="logo-en">Learn Korean</span></div>
     <div style="display:flex;gap:.8rem;align-items:center;">
-      <button onclick="showLearnPage();openModal('about')" style="background:none;border:1.5px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:500;">✦ About</button>
-      <button onclick="showLearnPage();openModal('song')" style="background:none;border:1.5px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:500;">🎵 Song</button>
+      <button onclick="openModal('about')" style="background:#FF6B6B;border:none;color:#fff;padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px rgba(255,107,107,.35);" onmouseover="this.style.background='#e85d5d'" onmouseout="this.style.background='#FF6B6B'">✦ About Hangul</button>
+      <button onclick="openModal('song')" style="background:#52b788;border:none;color:#fff;padding:.45rem 1rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:.8rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px rgba(82,183,136,.35);" onmouseover="this.style.background='#40916c'" onmouseout="this.style.background='#52b788'">🎵 Song</button>
     </div>
   </header>
   <div id="home-hero" style="max-width:600px;margin:0 auto;padding:2rem 1.5rem 1rem;text-align:center;">
@@ -282,14 +283,14 @@
         <div class="kculture-artist">
           <div class="kculture-artist-header" onclick="toggleArtist(this)"><span style="font-size:1.3rem;">🌙</span><div><div style="font-weight:800;font-size:.95rem;color:var(--text);">ENHYPEN (엔하이픈)</div><div style="font-size:.72rem;color:var(--text-muted);">HYBE · 2020–</div></div><span class="chevron">▼</span></div>
           <div class="kculture-songs">
-            <div class="kculture-song-row"><div class="song-info"><div class="song-title">Polaroid Love 📸</div><div class="song-sub">추억 + 감정 어휘 · 2021</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="polaroid-lesson1.html" target="_blank" class="song-btn">Lesson 1</a></div>
-            <div class="kculture-song-row"><div class="song-info"><div class="song-title">No Doubt 🌙</div><div class="song-sub">확신 + 감정 표현 · 2024</div></div><span class="level-badge badge-a2">A2</span><a href="nodoubt-lesson1.html" target="_blank" class="song-btn">Lesson 1</a></div>
+            <div class="kculture-song-row"><div class="song-info"><div class="song-title">Polaroid Love 📸</div><div class="song-sub">사랑 표현 · 2021</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="polaroid-lesson1.html" target="_blank" class="song-btn">Lesson 1</a></div>
+            <div class="kculture-song-row"><div class="song-info"><div class="song-title">No Doubt 🌙</div><div class="song-sub">감정 표현 · 2023</div></div><span class="level-badge badge-a2">A2</span><a href="nodoubt-lesson1.html" target="_blank" class="song-btn">Lesson 1</a><a href="nodoubt-lesson2.html" target="_blank" class="song-btn">Lesson 2</a><a href="nodoubt-lesson3.html" target="_blank" class="song-btn">Lesson 3</a></div>
           </div>
         </div>
         <div class="kculture-artist">
           <div class="kculture-artist-header" onclick="toggleArtist(this)"><span style="font-size:1.3rem;">🌈</span><div><div style="font-weight:800;font-size:.95rem;color:var(--text);">NCT Dream</div><div style="font-size:.72rem;color:var(--text-muted);">SM Entertainment · 2016–</div></div><span class="chevron">▼</span></div>
           <div class="kculture-songs">
-            <div class="kculture-song-row"><div class="song-info"><div class="song-title">Hello Future 🌈</div><div class="song-sub">미래 + 희망 표현 · 2021</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="hellofuture-lesson1.html" target="_blank" class="song-btn">Lesson 1</a></div>
+            <div class="kculture-song-row"><div class="song-info"><div class="song-title">Hello Future 🌟</div><div class="song-sub">격려 표현 + 미래 · 2021</div></div><span class="level-badge badge-a1">A1</span><a href="hellofuture-lesson1.html" target="_blank" class="song-btn" style="background:#10B981;">Lesson 1</a><a href="nct-lesson1-story.html" target="_blank" class="song-btn-quiz">Story 📖</a></div>
           </div>
         </div>
         <div class="kculture-artist" style="opacity:.6;">
@@ -304,7 +305,7 @@
         <div class="kculture-artist">
           <div class="kculture-artist-header" onclick="toggleArtist(this)"><span style="font-size:1.3rem;">💕</span><div><div style="font-weight:800;font-size:.95rem;color:var(--text);">이 사랑 통역 되나요?</div><div style="font-size:.72rem;color:var(--text-muted);">Can This Love Be Translated · Netflix 2025</div></div><span class="chevron">▼</span></div>
           <div class="kculture-songs">
-            <div class="kculture-song-row"><div class="song-info"><div class="song-title">나랑 오로라 보러 갈래? 🌌</div><div class="song-sub">감정 표현 + 색깔 + 제안하기</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="isarang-lesson1.html" target="_blank" class="song-btn">Lesson 1</a></div>
+            <div class="kculture-song-row"><div class="song-info"><div class="song-title">나랑 오로라 보러 갈래? 🌌</div><div class="song-sub">감정 표현 + 색깔 + 제안하기</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="isarang-lesson1.html" target="_blank" class="song-btn" style="background:#E879A0;">레슨 열기</a></div>
           </div>
         </div>
         <div class="kculture-artist" style="opacity:.6;">
@@ -322,9 +323,9 @@
       <div class="kculture-section-header" onclick="toggleKSection(this)" id="kfolktale-header"><span style="font-size:1.1rem;">📖</span><span>동화 · Reading</span><span class="chevron">▼</span></div>
       <div id="kfolktale-body" style="display:none;">
         <div class="kculture-artist">
-          <div class="kculture-artist-header" onclick="toggleArtist(this)"><span style="font-size:1.3rem;">☀️</span><div><div style="font-weight:800;font-size:.95rem;color:var(--text);">함께 해</div><div style="font-size:.72rem;color:var(--text-muted);">Hello Future Mini Story · NCT Dream</div></div><span class="chevron">▼</span></div>
+          <div class="kculture-artist-header" onclick="toggleArtist(this)"><span style="font-size:1.3rem;">🌟</span><div><div style="font-weight:800;font-size:.95rem;color:var(--text);">함께 해</div><div style="font-size:.72rem;color:var(--text-muted);">Hello Future Mini Story · NCT Dream</div></div><span class="chevron">▼</span></div>
           <div class="kculture-songs">
-            <div class="kculture-song-row"><div class="song-info"><div class="song-title">함께 해 ☀️</div><div class="song-sub">Hello Future Mini Story · NCT Dream</div></div><span class="level-badge badge-a1a2">A1–A2</span><a href="nct-lesson1-story.html" target="_blank" class="song-btn">레슨 열기</a></div>
+            <div class="kculture-song-row"><div class="song-info"><div class="song-title">함께 해 🌟</div><div class="song-sub">Mini Story · A1</div></div><span class="level-badge badge-a1">A1</span><a href="nct-lesson1-story.html" target="_blank" class="song-btn" style="background:#10B981;">레슨 열기</a></div>
           </div>
         </div>
         <div class="kculture-artist">
@@ -397,6 +398,8 @@
     <div class="quiz-inner"><div class="quiz-left"><div class="card-number">05</div><div class="card-title-kr">퀴즈 <span style="font-size:1rem;font-weight:400;color:var(--text-muted)">— 글자 읽기</span></div><div class="card-title-en">Characters Quiz</div><div class="card-desc">See a character — pick the correct sound. Test what you've learned!</div></div><div><div class="quiz-sample"><div class="quiz-sample-char">가</div><div class="quiz-sample-q"><div style="font-size:.8rem;color:var(--text-muted);margin-bottom:.3rem">What sound?</div><div style="font-size:.85rem">ga · na · da · ba?</div></div></div><button style="margin-top:.8rem;background:#FFD93D;border:none;color:#7B5200;padding:.6rem 1.5rem;border-radius:99px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;">Start Quiz →</button></div></div>
   </div>
 </div>
+
+</div><!-- /learn-page -->
 
 <!-- MODALS -->
 
@@ -482,6 +485,5 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('clic
 function showHome(){document.getElementById('home-screen').style.display='block';document.getElementById('learn-page').style.display='none';window.scrollTo(0,0);}
 function showLearnPage(){document.getElementById('home-screen').style.display='none';document.getElementById('learn-page').style.display='block';window.scrollTo(0,0);}
 </script>
-</div>
 </body>
 </html>
