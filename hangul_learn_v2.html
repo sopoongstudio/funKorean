@@ -484,6 +484,40 @@ document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('clic
 
 function showHome(){document.getElementById('home-screen').style.display='block';document.getElementById('learn-page').style.display='none';window.scrollTo(0,0);}
 function showLearnPage(){document.getElementById('home-screen').style.display='none';document.getElementById('learn-page').style.display='block';window.scrollTo(0,0);}
+
+// TTS CHECK - mobile only, run once
+(function(){
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  if(!isAndroid) return;
+  if(localStorage.getItem('tts_checked')) return;
+  function isSamsung(){return/Samsung|SM-|Galaxy/i.test(navigator.userAgent);}
+  function showTTSPopup(){
+    const samsung = isSamsung();
+    const storeLink = samsung ? 'https://galaxy.store/ttskor' : 'https://play.google.com/store/apps/details?id=com.google.android.tts';
+    const storeLabel = samsung ? '📲 Install from Galaxy Store' : '📲 Install from Play Store';
+    const instructions = samsung ? 'Settings → General Management → Text-to-speech → Install voice data → Korean' : 'Install Google Text-to-speech and enable Korean in its settings.';
+    const overlay = document.createElement('div');
+    overlay.id = 'tts-popup-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    overlay.innerHTML = '<div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center;font-family:DM Sans,Noto Sans KR,sans-serif;"><div style="font-size:44px;margin-bottom:12px;">🔇</div><h2 style="margin:0 0 10px;font-size:19px;color:#222;">Korean Voice Not Installed</h2><p style="color:#555;font-size:14px;line-height:1.6;margin:0 0 8px;">To hear Korean pronunciation, you need to install the <b>Korean TTS voice pack</b> on your device.</p><p style="color:#888;font-size:12px;line-height:1.5;margin:0 0 20px;">'+instructions+'</p><a href="'+storeLink+'" target="_blank" style="display:block;background:#6c63ff;color:#fff;padding:14px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:10px;">'+storeLabel+'</a><button onclick="document.getElementById(\'tts-popup-overlay\').remove();localStorage.setItem(\'tts_checked\',\'1\');" style="background:#eee;color:#555;border:none;padding:12px;border-radius:12px;font-size:14px;width:100%;cursor:pointer;">Skip — I will do this later</button></div>';
+    document.body.appendChild(overlay);
+  }
+  function checkKoreanTTS(){
+    if(!window.speechSynthesis){showTTSPopup();return;}
+    function check(voices){
+      const hasKorean=voices.some(v=>v.lang&&v.lang.startsWith('ko'));
+      if(!hasKorean)showTTSPopup();
+      else localStorage.setItem('tts_checked','1');
+    }
+    const v=speechSynthesis.getVoices();
+    if(v.length>0){check(v);}
+    else{
+      speechSynthesis.onvoiceschanged=()=>check(speechSynthesis.getVoices());
+      setTimeout(()=>{const vv=speechSynthesis.getVoices();if(vv.length===0)showTTSPopup();else check(vv);},2000);
+    }
+  }
+  checkKoreanTTS();
+})();
 </script>
 </body>
 </html>
